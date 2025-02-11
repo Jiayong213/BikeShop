@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Bike Detail </title>
+    <h2> {{ object.name }} </h2>
+</head>
+<body>
+    <p> frame: {{ object.frame }} </p>
+    <p> seat: {{ object.seat }} </p>
+    <P> tires: {{ object.tire }} </P>
+    {% if object.has_basket %}
+    <p> basket: yes</p>
+    {% else %}
+    <p> basket: no</p>
+    {% endif %}
+    <p> description: {{ object.description }}</p>
+
+{% if object.frame.quantity > 0 and object.seat.quantity > 0 and object.tire.quantity >= 2 and object.tire.quantity|divisibleby:2 %}
+
+<p><strong>If you want to order the bike, fill in the form below: </strong></p>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Order</button>
+</form>
+ {% else %}
+<p><strong>Unfortunately, this bike is currently not available.</strong></p>
+{% endif %}
+
+</body>
+</html>
